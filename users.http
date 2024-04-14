@@ -1,0 +1,40 @@
+@rooturl = http://localhost:3000
+
+GET http://localhost:3000/trips
+
+###
+POST http://localhost:3000/register
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "password123"
+}
+###
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "john@example.com",
+  "password": "password123"
+}
+
+###
+GET http://localhost:3000/profile
+Authorization: Bearer <JWT_TOKEN>
+###
+POST http://localhost:3000/diaryEntries
+Content-Type: application/json
+Authorization: Bearer <JWT_TOKEN>
+
+{
+  "title": "Trip to Paris",
+  "description": "Visited the Eiffel Tower and Louvre Museum.",
+  "date": "2024-04-15",
+  "location": "Paris, France",
+  "photos": ["photo1.jpg", "photo2.jpg"]
+}
+###
+DELETE http://localhost:3000/diaryEntries/1
+Authorization: Bearer <JWT_TOKEN>

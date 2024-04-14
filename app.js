@@ -59,9 +59,9 @@ const initializer = async () => {
     app.post("/register", async (req, res) => {
       try {
         const user = await User.create(db, req.body);
-        res.status(201).json({ user });
+        res.status(201).send({ user });
       } catch (err) {
-        res.status(400).json({ error: err.message });
+        res.status(400).send({ error: err.message });
       }
     });
 
@@ -70,7 +70,8 @@ const initializer = async () => {
       try {
         const user = await User.authenticate(db, email, password);
         const token = jwt.sign({ userId: user.id }, "secret");
-        res.json({ token });
+        res.send(token);
+        console.log(token);
       } catch (err) {
         res.status(401).json({ error: "Invalid credentials" });
       }

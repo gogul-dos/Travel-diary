@@ -1,7 +1,8 @@
 // models/User.js
+const db = require("../app");
 
 class User {
-  static async create(db, { name, email, password }) {
+  static async create({ name, email, password }) {
     return new Promise((resolve, reject) => {
       db.run(
         "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
@@ -16,7 +17,7 @@ class User {
     });
   }
 
-  static async authenticate(db, email, password) {
+  static async authenticate(email, password) {
     return new Promise((resolve, reject) => {
       db.get("SELECT * FROM users WHERE email = ?", [email], (err, row) => {
         if (err) {
@@ -35,7 +36,7 @@ class User {
     });
   }
 
-  static async findById(db, id) {
+  static async findById(id) {
     return new Promise((resolve, reject) => {
       db.get("SELECT * FROM users WHERE id = ?", [id], (err, row) => {
         if (err) {

@@ -1,10 +1,8 @@
 // models/DiaryEntry.js
+const db = require("../app");
 
 class DiaryEntry {
-  static async create(
-    db,
-    { userId, title, description, date, location, photos }
-  ) {
+  static async create({ userId, title, description, date, location, photos }) {
     return new Promise((resolve, reject) => {
       db.run(
         "INSERT INTO diary_entries (user_id, title, description, date, location, photos) VALUES (?, ?, ?, ?, ?, ?)",
@@ -27,7 +25,7 @@ class DiaryEntry {
     });
   }
 
-  static async findByUserId(db, userId) {
+  static async findByUserId(userId) {
     return new Promise((resolve, reject) => {
       db.all(
         "SELECT * FROM diary_entries WHERE user_id = ?",
@@ -42,7 +40,7 @@ class DiaryEntry {
     });
   }
 
-  static async update(db, id, { title, description, date, location, photos }) {
+  static async update(id, { title, description, date, location, photos }) {
     return new Promise((resolve, reject) => {
       db.run(
         "UPDATE diary_entries SET title = ?, description = ?, date = ?, location = ?, photos = ? WHERE id = ?",
@@ -57,7 +55,7 @@ class DiaryEntry {
     });
   }
 
-  static async delete(db, id) {
+  static async delete(id) {
     return new Promise((resolve, reject) => {
       db.run("DELETE FROM diary_entries WHERE id = ?", [id], function (err) {
         if (err) {
